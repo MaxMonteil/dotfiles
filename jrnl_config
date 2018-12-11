@@ -6,7 +6,7 @@
 		},
 		"dev": "~/Documents/devnotes.txt"
 	},
-	"editor": "vim -c Goyo -c startinsert",
+	"editor": "vim -c Goyo -c Wrap -c startinsert",
 	"encrypt": false,
 	"default_hour": 9,
 	"default_minute": 0,
