@@ -1,17 +1,16 @@
 {
-	"journals": {
-		"default": {
-			"journal": "/mnt/HDD/Documents/journal.txt",
-			"encrypt": true
-		},
-		"dev": "~/Documents/devnotes.txt"
-	},
-	"editor": "vim -c Goyo -c Wrap -c startinsert",
-	"encrypt": false,
-	"default_hour": 9,
-	"default_minute": 0,
-	"timeformat": "%a, %d %b %Y %H:%M",
-	"tagsymbols": "@",
-	"highlight": true,
-	"linewrap": 120
+  "journals": {
+    "default": {
+      "journal": "/mnt/HDD/Documents/journal/journal.txt",
+      "encrypt": true
+    }
+  },
+  "editor": "vim +Goyo +Wrap +EndOfLine",
+  "encrypt": false,
+  "default_hour": 9,
+  "default_minute": 0,
+  "timeformat": "%a, %d %b %Y %H:%M",
+  "tagsymbols": "@",
+  "highlight": true,
+  "linewrap": 120
 }
