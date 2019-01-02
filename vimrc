@@ -124,3 +124,6 @@ endfunction
 
 autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
+
+" Single word command for jrnl to place cursor at the end of the line
+command EndOfLine normal! $
