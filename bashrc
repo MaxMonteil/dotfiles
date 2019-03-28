@@ -119,11 +119,17 @@ fi
 # Restart trackpad, sometimes it freezes after laptop wakes from sleep
 alias restartTrack='sudo modprobe -r psmouse && sudo modprobe psmouse'
 
+# shortcut to typing clear all the time
+alias c='clear'
+
+# make dir and cd into it in one command
+function mkcd { mkdir "$1" && cd "$1"; }
+
 # quickly get to hdd
 alias hdd='cd /mnt/HDD/Documents/Programming'
 
 # Common update commands
-alias update='sudo apt update && sudo apt upgrade -y && sudo apt-get update && sudo apt-get upgrade -y'
+alias update='sudo apt update && sudo apt upgrade -y'
 
 # Open files from terminal with default file
 alias o='xdg-open 2>/dev/null'
@@ -131,8 +137,12 @@ alias o='xdg-open 2>/dev/null'
 # Shortcut for todolist
 alias td='todolist'
 
-# Git Status alias
+# Git Aliases
 alias gits='git status'
+alias gitb='git branch'
+
+# pipenv aliases
+alias prp='pipenv run python'
 
 # Change tlp battery modes
 alias acpower='sudo tlp ac'
@@ -141,7 +151,10 @@ alias batpower='sudo tlp bat'
 # Launch journal with templates
 alias jrnlm='jrnl < /mnt/HDD/Documents/journal/daily_template.txt && jrnl -1 --edit'
 alias jrnle='jrnl -on today --edit'
-function exportJrnl { jrnl --export markdown | pandoc --pdf-engine=xelatex -s -o "$1"; }
+function exportJrnl { jrnl --export markdown | pandoc -s -o "$1"; }
+
+# Function to create a new project directory with commands I always run
+function mkpro { mkcd "$PWD/$1" && git init && cp ~/.new_project_config/readme_template.md $PWD/README.md; }
 
 export PATH=$PATH:/home/max/.go/bin
 
@@ -153,3 +166,32 @@ export PATH="/home/max/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PATH="/home/max/.local/bin:$PATH"
+
+# Add sml compiler to path
+export PATH="/usr/bin/sml:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/max/google-cloud-sdk/path.bash.inc' ]; then . '/home/max/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/max/google-cloud-sdk/completion.bash.inc' ]; then . '/home/max/google-cloud-sdk/completion.bash.inc'; fi
+
+# added by Anaconda3 2018.12 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$(CONDA_REPORT_ERRORS=false '/home/max/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     \eval "$__conda_setup"
+# else
+#     if [ -f "/home/max/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/max/anaconda3/etc/profile.d/conda.sh"
+#         CONDA_CHANGEPS1=false conda activate base
+#     else
+#         \export PATH="/home/max/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda init <<<
+
+# Simple add anaconda to path
+export PATH="/home/max/anaconda3/bin:$PATH"
