@@ -1,5 +1,7 @@
 set number
 set relativenumber
+set splitright
+set cursorline
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -15,6 +17,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Code auto completion
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
 
 " Search highlighting
 Plugin 'haya14busa/incsearch.vim'
@@ -26,9 +30,10 @@ Plugin 'junegunn/limelight.vim'
 " Status/tabline bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
 
 " Theming
-Plugin 'dikiaap/minimalist'
+Plugin 'chriskempson/base16-vim'
 
 " Python
 Plugin 'nvie/vim-flake8'
@@ -40,6 +45,17 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this linet number
+
+" Remap leader key
+let mapleader = ","
+
+" netrw settings
+let g:netrw_banner=0		" Disable banner
+let g:netrw_browse_split=4	" Open in prior window
+let g:netrw_altv=1			" Open splits to the right
+let g:netrw_liststyle=3		" Tree view
+autocmd FileType netrw set1 bufhidden=delete
+
 
 " Standard editor spacing settings
 set tabstop=4
@@ -55,8 +71,8 @@ au BufNewFile,BufRead *.py
 	\ set tabstop=4		|
 	\ set softtabstop=4	|
 	\ set shiftwidth=4	|
-	\ set textwidth=79	|
-	\ set colorcolumn=80|
+	\ set textwidth=87	|
+	\ set colorcolumn=88|
 	\ highlight ColorColumn ctermbg=235|
 	\ set expandtab		|
 	\ set autoindent	|
@@ -75,11 +91,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline_powerline_fonts = 1
 
 " Theming
-set t_Co=256
 syntax on
-colorscheme minimalist
-let g:airline_theme='minimalist'
-highlight Search ctermbg=blue ctermfg=black guibg=blue guifg=black
+if filereadable(expand("~/.vimrc_background"))
+	let base16colorspace=256
+	source ~/.vimrc_background
+endif
+" set t_Co=256
+" colorscheme base16-default-dark
+" let g:airline_theme='minimalist'
+" highlight Search ctermbg=blue ctermfg=black guibg=blue guifg=black
 
 " C/C++ compiler Mappings
 map <F4> :w<CR>:!gcc % -o %<<CR>
@@ -104,6 +124,7 @@ let g:goyo_width = 120
 " Ensure :q to quit even when Goyo is active
 function! s:goyo_enter()
 	execute 'Limelight'
+	execute 'set ft=markdown'
 	let b:quitting = 0
 	let b:quitting_bang = 0
 	autocmd QuitPre <buffer> let b:quitting = 1
