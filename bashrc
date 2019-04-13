@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+# force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -116,6 +116,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+		eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 # Restart trackpad, sometimes it freezes after laptop wakes from sleep
 alias restartTrack='sudo modprobe -r psmouse && sudo modprobe psmouse'
 
@@ -141,6 +147,13 @@ alias td='todolist'
 alias gits='git status'
 alias gitb='git branch'
 
+# gridsome is too long a word for a command
+alias gs='gridsome'
+
+# common xclip shortcuts
+alias iclip="xclip -i -sel clipboard"
+alias oclip="xclip -o -sel clipboard"
+
 # pipenv aliases
 alias prp='pipenv run python'
 
@@ -154,7 +167,13 @@ alias jrnle='jrnl -on today --edit'
 function exportJrnl { jrnl --export markdown | pandoc -s -o "$1"; }
 
 # Function to create a new project directory with commands I always run
-function mkpro { mkcd "$PWD/$1" && git init && cp ~/.new_project_config/readme_template.md $PWD/README.md; }
+function mkpro {
+	mkcd "$PWD/$1";
+	git init;
+	cp ~/.new_project_config/gitignore ./.gitignore;
+	echo "# ${1//_/ }" > README.md;
+	cat ~/.new_project_config/readme_template.md >> $PWD/README.md;
+}
 
 export PATH=$PATH:/home/max/.go/bin
 
