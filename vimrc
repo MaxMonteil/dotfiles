@@ -41,7 +41,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'nvie/vim-flake8'
 
 call vundle#end()               " required
-filetype plugin indent          " required
+filetype plugin indent on       " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
