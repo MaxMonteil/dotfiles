@@ -5,7 +5,7 @@
       "encrypt": true
     }
   },
-  "editor": "vim +Goyo +Wrap +EndOfLine",
+  "editor": "nvim +Wrap +Goyo +EndOfLine",
   "encrypt": false,
   "default_hour": 9,
   "default_minute": 0,
