@@ -125,11 +125,17 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Restart trackpad, sometimes it freezes after laptop wakes from sleep
 alias restartTrack='sudo modprobe -r psmouse && sudo modprobe psmouse'
 
+# Use neovim as default vim
+alias vim='nvim'
+
 # shortcut to typing clear all the time
 alias c='clear'
 
+# I always do `ls` after `cd`
+function cs () { cd "$@" && ls; }
+
 # make dir and cd into it in one command
-function mkcd { mkdir "$1" && cd "$1"; }
+function mkcd () { mkdir "$1" && cd "$1"; }
 
 # quickly get to hdd
 alias hdd='cd /mnt/HDD/Documents/Programming'
@@ -157,22 +163,34 @@ alias oclip="xclip -o -sel clipboard"
 # pipenv aliases
 alias prp='pipenv run python'
 
+# TMUX setup scripts
+alias pymux='~/.tmux-scripts/pymux.sh'
+
 # Change tlp battery modes
 alias acpower='sudo tlp ac'
 alias batpower='sudo tlp bat'
 
+# Alias to Spotify control script
+alias sp='~/bin/sp.sh'
+
 # Launch journal with templates
 alias jrnlm='jrnl < /mnt/HDD/Documents/journal/daily_template.txt && jrnl -1 --edit'
 alias jrnle='jrnl -on today --edit'
-function exportJrnl { jrnl --export markdown | pandoc -s -o "$1"; }
+function exportJrnl () { jrnl --export markdown | pandoc -s -o "$1"; }
 
 # Function to create a new project directory with commands I always run
-function mkpro {
+function mkpro () {
+	echo "Creating project...";
 	mkcd "$PWD/$1";
+	echo "Creating git repository...";
 	git init;
+	echo "Adding .gitignore...";
 	cp ~/.new_project_config/gitignore ./.gitignore;
+	echo "Creating README...";
 	echo "# ${1//_/ }" > README.md;
 	cat ~/.new_project_config/readme_template.md >> $PWD/README.md;
+	echo -e "Done!\n";
+	ls -a;
 }
 
 export PATH=$PATH:/home/max/.go/bin
@@ -214,3 +232,5 @@ if [ -f '/home/max/google-cloud-sdk/completion.bash.inc' ]; then . '/home/max/go
 
 # Simple add anaconda to path
 export PATH="/home/max/anaconda3/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
