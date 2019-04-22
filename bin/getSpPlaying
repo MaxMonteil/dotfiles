@@ -1,0 +1,1 @@
+~/bin/sp.sh metadata | sed -n '6 h; 9{x;G;s_\n_|_;p;}' | awk -v FS='|' '{print " "$4" by "$2}'
