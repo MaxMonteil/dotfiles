@@ -15,9 +15,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Sensible defaults
 Plug 'tpope/vim-sensible'
 
-" Auto complete
-" Plug 'jiangmiao/auto-pairs'
-
 " Extra editing features
 Plug 'Yggdroot/indentLine'
 Plug 'haya14busa/is.vim'
@@ -26,7 +23,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
 " Completion
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }} 
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+
+" Linting
+Plug 'w0rp/ale'
 
 " Distraction free
 Plug 'junegunn/goyo.vim'
@@ -39,9 +39,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Theming
 Plug 'chriskempson/base16-vim'
-
-" Python
-Plug 'nvie/vim-flake8'
 
 " Initialize plugin system
 call plug#end()
@@ -69,19 +66,20 @@ set list
 nnoremap <silent> <Leader><Leader> :nohlsearch<CR>
 
 " netrw settings
-let g:netrw_banner=0        " Disable banner
-let g:netrw_browse_split=0  " Open in previous window
-let g:netrw_winsize=-188    " Default width for new window splits
-let g:netrw_altv=4          " Open splits to the right
-let g:netrw_liststyle=3     " Tree view
+let g:netrw_banner=0            " Disable banner
+let g:netrw_browse_split=0      " Open in previous window
+let g:netrw_winsize=-188        " Default width for new window splits
+let g:netrw_altv=4              " Open splits to the right
+let g:netrw_liststyle=3         " Tree view
+let g:netrw_localrmdir='rm -r'  " Allow removal of non empty local directories
 autocmd FileType netrw set1 bufhidden=delete
 
 " Coc
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " point neovim to python environments
-let g:python_host_prog = '/home/max/.local/share/virtualenvs/neovim2-7RDr6qUj/bin/python'
-let g:python3_host_prog = '/home/max/.local/share/virtualenvs/neovim3-Z2MOluyj/bin/python'
+let g:python_host_prog = '/home/max/.local/share/virtualenvs/neovim2-14-4wO9h/bin/python'
+let g:python3_host_prog = '/home/max/.local/share/virtualenvs/neovim3-K8FneTm3/bin/python'
 
 " Standard editor space settings
 set tabstop=4
@@ -103,10 +101,7 @@ au BufNewFile,BufRead *.py
     \ set expandtab     |
     \ set autoindent    |
     \ set fileformat=unix
-au BufWritePost *.py call Flake8()
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
 " Use <tab> to move through completions
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
@@ -177,4 +172,3 @@ autocmd! User GoyoLeave call <SID>goyo_leave()
 
 " Single word command for jrnl to place cursor at the end of the line
 command! EndOfLine normal! $
-
