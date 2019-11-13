@@ -1,5 +1,6 @@
 set cursorline
-set guicursor=          " Keep cursor as a block
+set guicursor=      " Keep cursor as a block
+
 set hlsearch
 set incsearch
 set noequalalways
@@ -21,12 +22,14 @@ Plug 'haya14busa/is.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
-" Completion
+" Completion and Linting
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
-
-" Linting
 Plug 'w0rp/ale'
+
+" Tags management
+Plug 'ludovicchabant/vim-gutentags'
 
 " Distraction free
 Plug 'junegunn/goyo.vim'
@@ -36,6 +39,12 @@ Plug 'junegunn/limelight.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Language specific
+Plug 'posva/vim-vue'                        " Vue
+Plug 'MaxMEllon/vim-jsx-pretty'             " React
+Plug 'pangloss/vim-javascript'              " Javascript
+Plug 'jackguo380/vim-lsp-cxx-highlight'     " C/C++
 
 " Theming
 Plug 'chriskempson/base16-vim'
@@ -68,18 +77,18 @@ nnoremap <silent> <Leader><Leader> :nohlsearch<CR>
 " netrw settings
 let g:netrw_banner=0            " Disable banner
 let g:netrw_browse_split=0      " Open in previous window
-let g:netrw_winsize=-188        " Default width for new window splits
+let g:netrw_winsize=-236        " Default width for new window splits
 let g:netrw_altv=4              " Open splits to the right
 let g:netrw_liststyle=3         " Tree view
 let g:netrw_localrmdir='rm -r'  " Allow removal of non empty local directories
-autocmd FileType netrw set1 bufhidden=delete
+autocmd FileType netrw setl bufhidden=delete
 
 " Coc
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " point neovim to python environments
-let g:python_host_prog = '/home/max/.local/share/virtualenvs/neovim2-14-4wO9h/bin/python'
-let g:python3_host_prog = '/home/max/.local/share/virtualenvs/neovim3-K8FneTm3/bin/python'
+let g:python_host_prog = '/home/max/.local/share/virtualenvs/neovim2/bin/python'
+let g:python3_host_prog = '/home/max/.local/share/virtualenvs/neovim3/bin/python'
 
 " Standard editor space settings
 set tabstop=4
@@ -92,15 +101,26 @@ command! -nargs=* Wrap set wrap linebreak nolist
 
 " Python settings
 au BufNewFile,BufRead *.py
-    \ set tabstop=4     |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4  |
-    \ set textwidth=87  |
-    \ set colorcolumn=88|
+    \ setlocal tabstop=4     |
+    \ setlocal softtabstop=4 |
+    \ setlocal shiftwidth=4  |
+    \ setlocal textwidth=87  |
+    \ setlocal colorcolumn=88|
     \ highlight ColorColumn ctermbg=235|
-    \ set expandtab     |
-    \ set autoindent    |
-    \ set fileformat=unix
+    \ setlocal expandtab     |
+    \ setlocal autoindent    |
+    \ setlocal fileformat=unix
+
+" Vue and JS settings
+au BufNewFile,BufRead *.vue,*js
+    \ setlocal shiftwidth=2  |
+    \ setlocal expandtab     |
+    \ setlocal autoindent    |
+    \ setlocal fileformat=unix
+" Highlighting sometimes randomly stops in vue files
+autocmd FileType vue syntax sync fromstart
+" Speed up vue plugin by not checking for all preprocessors
+let g:vue_disable_pre_processors=1
 
 " Use <tab> to move through completions
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -112,9 +132,13 @@ let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
 let g:ale_sign_error = '⚑'
 let g:ale_sign_warning = '⚐'
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 let g:ale_linters = {
-\	'python': ['flake8'],
+\   'python': ['flake8'],
+\   'vue': ['eslint', 'vls'],
 \}
+let g:ale_echo_msg_format = '[%linter%] %s'
+
 
 " Vim Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -135,19 +159,24 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 endif
+" Enable transparent backgrounds
+hi Normal ctermbg=None
+hi NonText ctermbg=None
 
 " C/C++ compiler Mappings
 map <F4> :w<CR>:!gcc % -o %<<CR>
 map <F5> :w<CR>:!g++ % -o %<<CR>
 map <F6> :!./%<<CR>
 
-" Goyo Config
+" Limelight Config
+let g:limelight_conceal_ctermfg = 'gray'
+
+"Goyo Config
 let g:goyo_width = 120
 " Ensure :q to quit even when Goyo is active
 function! s:goyo_enter()
     let &showbreak = ''
     execute 'set nocursorline'
-    execute 'Limelight'
     execute 'set ft=markdown'
     let b:quitting = 0
     let b:quitting_bang = 0
@@ -156,7 +185,6 @@ function! s:goyo_enter()
 endfunction
 
 function! s:goyo_leave()
-    execute 'Limelight!'
     " Quit Vim if this is the only remaining buffer
     if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
         if b:quitting_bang
