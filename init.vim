@@ -1,5 +1,6 @@
 set cursorline
 set guicursor=      " Keep cursor as a block
+set mouse=
 set termguicolors
 
 set hlsearch
@@ -131,7 +132,6 @@ let g:startify_bookmarks = [
   \ {'c': '~/.config/nvim/coc-settings.json'},
   \ {'n': '~/.config/nvim/init.vim'},
   \ {'t': '~/.config/tmux/tmux.conf'},
-  \ {'i': '~/.config/i3/config'},
 \ ]
 
 " Vim Coc
