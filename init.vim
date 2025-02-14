@@ -31,21 +31,18 @@ Plug 'Yggdroot/indentLine'                  " Show indent levels
 Plug 'haya14busa/is.vim'                    " Improves incremental search
 Plug 'tpope/vim-repeat'                     " Lets plugins use '.' to repeat commands
 Plug 'tpope/vim-surround'                   " Mappings for better surrounding pairs
-Plug 'tomtom/tcomment_vim'                  " Comment stuff out
-Plug 'jiangmiao/auto-pairs'                 " Automatically close character pairs
 Plug 'bagrat/vim-buffet'                    " Better buffer and tabs management
+Plug 'jiangmiao/auto-pairs'                 " Automatically close character pairs
 
 " Completion and Linting
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Project searching
-Plug 'jremmen/vim-ripgrep'
 
 " Tags management
 Plug 'ludovicchabant/vim-gutentags'
 
 " Distraction free
-Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Status/tabline bar
@@ -54,15 +51,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 
 " Language specific
-" Plug 'sheerun/vim-polyglot'                 " All
-Plug 'posva/vim-vue'                        " Vue
-Plug 'pangloss/vim-javascript'              " Javascript
-Plug 'vim-python/python-syntax'             " Python
-Plug 'jackguo380/vim-lsp-cxx-highlight'     " C/C++
-Plug 'mechatroner/rainbow_csv'              " CSV
-Plug 'StanAngeloff/php.vim', {'for': 'php'} " PHP
-Plug 'stephpy/vim-php-cs-fixer'             " PHP
-Plug 'jwalton512/vim-blade'                 " PHP Blade templates
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Theming
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
@@ -82,11 +71,17 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+" Close split
+nnoremap <C-c> <C-w>c
+
 " Cycle through open buffers with Tab and Shift+Tab arrow keys
 nnoremap <silent> <Tab> :bnext<CR>
 nnoremap <silent> <S-Tab> :bprevious<CR>
 
+" ---------------------------------------
 " Quickfix
+" ---------------------------------------
+
 " Open Quickfix across full width of window
 autocmd filetype qf wincmd J
 
@@ -117,13 +112,18 @@ set list
 " Clear search highlighting with double Leader
 nnoremap <silent> <Leader><Leader> :nohlsearch<CR>
 
+" ---------------------------------------
 " Vim Buffet
+" ---------------------------------------
 let g:buffet_powerline_separators = 1
 let g:buffet_tab_icon = "\uf00a"
 let g:buffet_left_trunc_icon = "\uf0a8"
 let g:buffet_right_trunc_icon = "\uf0a9"
 
+" ---------------------------------------
 " Vim Startify
+" ---------------------------------------
+
 let g:startify_change_to_vcs_root = 1
 let g:startify_change_to_dir = 1
 let g:startify_session_persistence = 1
@@ -134,7 +134,10 @@ let g:startify_bookmarks = [
   \ {'t': '~/.config/tmux/tmux.conf'},
 \ ]
 
+" ---------------------------------------
 " Vim Coc
+" ---------------------------------------
+
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -156,7 +159,14 @@ function! s:show_documentation()
   endif
 endfunction
 
+" ---------------------------------------
 " coc-explorer
+" ---------------------------------------
+
+" Disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 let g:coc_explorer_global_presets = {
   \   '.vim': {
   \     'root-uri': '~/.vim',
@@ -168,18 +178,35 @@ let g:coc_explorer_global_presets = {
   \   },
   \ }
 
-nmap <space>e :CocCommand explorer<CR>
-nmap <space>f :CocCommand explorer --preset floating<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+" if the first and only vim argument is a directory, use coc-explorer
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) | execute 'CocCommand explorer' | execute 'bd 1' | endif
+
+nmap <silent> <space>e :CocCommand explorer --root-strategies workspace --reveal<CR>
+
+augroup CocExplorerSettings
+  autocmd!
+  autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+  autocmd BufEnter * if &filetype == 'coc-explorer' | setlocal number relativenumber | endif
+augroup END
+
+" ---------------------------------------
+" fzf
+" ---------------------------------------
+nmap <silent> <space>f :GFiles<CR>
+nmap <silent> <space>b :Buffers<CR>
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " ---------------------------------------
 " Completion (:h coc-completion)
 " ---------------------------------------
 
-" Use <CR> to confirm completion
-inoremap <expr> <cr>
-  \ coc#pum#visible() ? coc#_select_confirm() :
-  \ "\<CR>"
+let g:AutoPairsMapCR = 0
+" Use <CR> to confirm completion and keep working with auto-pairs
+inoremap <silent><expr> <CR>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump', ''])\<CR>" :
+      \ coc#on_enter() ? "\<C-r>=coc#on_enter()\<CR>" :
+      \ "\<CR>"
 
 " Use <tab> and <S-tab> to navigate completion list
 inoremap <silent><expr> <TAB>
@@ -195,17 +222,6 @@ function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Point neovim to python environments
-let g:python_host_prog = '/home/max/.local/share/virtualenvs/neovim2/bin/python'
-let g:python3_host_prog = '/home/max/.local/share/virtualenvs/neovim3-i4srHafD/bin/python'
 
 " Vim Gutentags
 " command! MakeTags !ctags -R .
@@ -279,6 +295,30 @@ set expandtab
 " Shortcut to wrap text
 command! -nargs=* Wrap set wrap linebreak nolist
 
+" Delete all buffers except current one
+command! BufOnly silent! execute "%bd|e#|bd#"
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gv",
+      node_incremental = "g.",
+      node_decremental = "g,",
+      scope_incremental = "g,",
+    },
+  },
+}
+EOF
+
 " Python settings
 au BufNewFile,BufRead *.py
             \ setlocal tabstop=4     |
@@ -303,20 +343,8 @@ au BufNewFile,BufRead *.vue,*js
 let g:javascript_plugin_jsdoc = 1
 
 "" Highlighting sometimes randomly stops in vue files
-autocmd FileType vue syntax sync fromstart
-let g:vue_pre_processors = []
-
-
-" Rainbow CSV
-let g:rbql_backend_language = 'js'
-
-" PHP settings
-let g:php_cs_fixer_config_file = '/home/max/.local/share/.php_cs'
-augroup FormatPHPOnSave
-  autocmd!
-  autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
-augroup END
-command! ComposerDumpAutoload !composer dump-autoload
+"autocmd FileType vue syntax sync fromstart
+"let g:vue_pre_processors = []
 
 " Markdown Settings
 au BufNewFile,BufRead *.md
@@ -324,6 +352,7 @@ au BufNewFile,BufRead *.md
 
 " JSONC syntax highlighting for comments
 autocmd FileType json syntax match Comment +\/\/.\+$+
+let g:vim_json_conceal=0
 
 " Vim Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -349,40 +378,17 @@ let g:tmuxline_preset = {
       \ 'cwin': '#I #W'
   \}
 
-" C/C++ compiler Mappings
-map <F4> :w<CR>:!gcc % -o %<<CR>
-map <F5> :w<CR>:!g++ % -o %<<CR>
-map <F6> :!./%<<CR>
-
 " Limelight Config
 let g:limelight_conceal_ctermfg = 'gray'
 
-"Goyo Config
-let g:goyo_width = 120
-" Ensure :q to quit even when Goyo is active
-function! s:goyo_enter()
-    let &showbreak = ''
-    execute 'set nocursorline'
-    execute 'set ft=markdown'
-    let b:quitting = 0
-    let b:quitting_bang = 0
-    autocmd QuitPre <buffer> let b:quitting = 1
-    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
+" ---------------------------------------
+" Custom Shortcuts
+" ---------------------------------------
+" Open Git window
+nmap <silent> <space>g :G<CR>
 
-function! s:goyo_leave()
-    " Quit Vim if this is the only remaining buffer
-    if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-        if b:quitting_bang
-            qa!
-        else
-            qa
-        endif
-    endif
-endfunction
+" Open the Startify panel
+nmap <silent> <space>s :Startify<CR>
 
-autocmd! User GoyoEnter call <SID>goyo_enter()
-autocmd! User GoyoLeave call <SID>goyo_leave()
-
-" Single word command for jrnl to place cursor at the end of the line
-command! EndOfLine normal! $
+" Quickly save Startify session
+nmap <silent> <C-s> :SSave!<CR>
