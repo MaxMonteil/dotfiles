@@ -1,0 +1,13 @@
+vim.lsp.enable({
+  'lua_ls',
+  'vue_ls',
+  'vtsls',
+  'eslint',
+  'html',
+  'cssls',
+  'css_variables',
+  'tailwindcss',
+  'marksman',
+  'yamlls',
+  'emmet_language_server',
+})
