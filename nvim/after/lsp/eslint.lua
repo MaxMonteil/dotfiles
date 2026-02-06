@@ -12,7 +12,7 @@ vim.lsp.config("eslint", {
       }, nil, bufnr)
     end, {})
 
-    vim.api.nvim_create_autocmd("BufWritePre", {
+    vim.api.nvim_create_autocmd('BufWritePre', {
       buffer = bufnr,
       command = "EslintFixAll",
     })
