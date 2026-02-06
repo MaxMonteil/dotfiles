@@ -23,7 +23,6 @@ vim.o.autoindent = true                 -- Copy indent from current line when st
 vim.o.smartindent = true                -- Do smart autoindenting when starting a new line
 vim.o.smarttab = true                   -- Insert <Tab> according to specified widths
 vim.opt.completeopt:append('noselect')  -- Don't auto select the first item
-vim.o.foldmethod = 'manual'             -- Use manual folding, I don't want things autofolded
 
 -- FILE HANDLING --
 vim.o.backup = false                    -- Don't create backup files
@@ -44,22 +43,6 @@ vim.opt.listchars = {                   -- Custom white space characters
   nbsp = '·',
   trail = '~',
 }
-
--- FOLDS --
--- Save folds in markdown files across sessions
-local folds_augroup = vim.api.nvim_create_augroup('Folds', { clear = true })
-
-vim.api.nvim_create_autocmd({'BufWritePost', 'QuitPre'}, {
-  pattern = '*.md',
-  group = folds_augroup,
-  command = 'mkview',
-})
-
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  pattern = '*.md',
-  group = folds_augroup,
-  command = 'silent! loadview | normal! zM',
-})
 
 --------------------
 -- SEARCH PATTERN --
