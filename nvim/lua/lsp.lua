@@ -1,4 +1,5 @@
 vim.lsp.enable({
+  'astro',
   'lua_ls',
   'vue_ls',
   'vtsls',
