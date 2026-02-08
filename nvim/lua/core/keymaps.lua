@@ -55,8 +55,8 @@ vim.keymap.set('n', 'tt', function()
   vim.cmd('normal! jli')
 end, { silent = true, desc = 'Open a terminal window below in insert mode.' })
 
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>',
-  { desc = 'Map escape to leave insert mode in a terminal.' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>',
+  { desc = 'Map escape to leave insert mode in a terminal (first Esc is captured by terminal).' })
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
