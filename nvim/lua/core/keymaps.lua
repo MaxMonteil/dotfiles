@@ -46,3 +46,25 @@ vim.diagnostic.config({
   virtual_text = true,
   virtual_lines = { current_line = true },
 })
+
+-----------------
+-- Term Keymaps --
+-----------------
+vim.keymap.set('n', 'tt', function()
+  vim.cmd('bel 15 split | term')
+  vim.cmd('normal! jli')
+end, { silent = true, desc = 'Open a terminal window below in insert mode.' })
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>',
+  { desc = 'Map escape to leave insert mode in a terminal.' })
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    vim.keymap.set('n', '<C-d>', ':bd!<CR>', {
+      buffer = true,
+      silent = true,
+      desc = 'Force close the terminal window.',
+    })
+  end,
+})
