@@ -52,10 +52,9 @@ return {
 
     vim.api.nvim_create_autocmd('User', {
       pattern = 'MiniFilesWindowOpen',
-      callback = function(args)
+      callback = function()
         vim.keymap.set('n', '<ESC>', mini_files.close, {
           desc = 'Close file explorer.',
-          buffer = args.buf,
         })
       end,
     })
