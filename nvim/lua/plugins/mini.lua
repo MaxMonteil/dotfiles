@@ -10,7 +10,6 @@ return {
     require('mini.pairs').setup()
     require('mini.statusline').setup()
     require('mini.surround').setup()
-    require('mini.snippets').setup()
 
     -------------
     -- Comment --
@@ -61,6 +60,23 @@ return {
       end,
     })
     -- Files end --
+
+    --------------
+    -- Snippets --
+    --------------
+    local mini_snippets = require('mini.snippets')
+
+    mini_snippets.setup({
+      snippets = {
+        -- Load custom file with global snippets first
+        mini_snippets.gen_loader.from_file('~/.config/nvim/snippets/global.json'),
+
+        -- Load snippets based on current language by reading files from
+        -- "snippets/" subdirectories from 'runtimepath' directories.
+        mini_snippets.gen_loader.from_lang(),
+      },
+    })
+    -- Snippets end --
 
     ------------
     -- Keymap --

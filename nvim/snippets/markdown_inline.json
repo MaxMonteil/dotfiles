@@ -1,0 +1,13 @@
+{
+  "marginnote": {
+    "prefix": "marginnote",
+    "body": [
+      "<label for=\"$1\" class=\"margin-toggle\">&#8853;</label>",
+      "<input type=\"checkbox\" id=\"$1\" class=\"margin-toggle\"/>",
+      "<span class=\"marginnote\">",
+      "  $0",
+      "</span>"
+    ],
+    "desc": "Insert a marginnote for Tufte CSS."
+  }
+}
