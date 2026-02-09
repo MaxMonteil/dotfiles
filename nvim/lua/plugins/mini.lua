@@ -76,6 +76,23 @@ return {
         mini_snippets.gen_loader.from_lang(),
       },
     })
+
+    -- Stop all sessions on Normal mode exit
+    vim.api.nvim_create_autocmd('User', {
+      desc = 'Stop all snippet sessions on Normal mode exit.',
+      pattern = 'MiniSnippetsSessionStart',
+      callback = function()
+        vim.api.nvim_create_autocmd('ModeChanged', {
+          pattern = '*:n',
+          once = true,
+          callback = function()
+            while mini_snippets.session.get() do
+              mini_snippets.session.stop()
+            end
+          end,
+        })
+      end,
+    })
     -- Snippets end --
 
     ------------
