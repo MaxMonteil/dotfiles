@@ -1,7 +1,14 @@
---------------------
+---------------------
 -- GLOBAL SETTINGS --
---------------------
+---------------------
 vim.o.timeoutlen = 300                  -- How long to wait for next key in combo
+
+-----------------------
+-- OVERRIDE DEFAULTS --
+------------------------
+-- Neovim ships with default plugins in shared/
+
+vim.g.markdown_recommended_style = 0    -- Disabled Neovim's default markdown styles
 
 ------------
 -- EDITOR --
