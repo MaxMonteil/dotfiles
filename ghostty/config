@@ -1,0 +1,29 @@
+# Ghostty Theme
+theme = Catppuccin Mocha
+
+# always use block cursor
+cursor-style = block
+
+# bind left option key as alt for tmux keybindings
+macos-option-as-alt = left
+
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
+# Command + backspace to delete whole line
+keybind = cmd+backspace=esc:w
+
+# TERIMINAL SPLITS
+# Toggle split mazimization
+keybind = alt+f=toggle_split_zoom
+
+# Create terminal splits
+keybind = alt+minus=new_split:down
+keybind = alt+backslash=new_split:right
+
+# Navigate terminal splits
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:down
+keybind = alt+k=goto_split:up
+keybind = alt+l=goto_split:right
+
