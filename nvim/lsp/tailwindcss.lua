@@ -4,7 +4,7 @@
 --- Tailwind CSS Language Server can be installed via npm:
 ---
 --- npm install -g @tailwindcss/language-server
-local util = require('lspconfig.util')
+local util = require 'lspconfig.util'
 
 ---@type vim.lsp.Config
 return {
@@ -73,6 +73,7 @@ return {
       },
     },
   },
+  ---@type lspconfig.settings.tailwindcss
   settings = {
     tailwindCSS = {
       validate = true,
