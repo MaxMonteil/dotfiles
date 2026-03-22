@@ -42,6 +42,8 @@ vim.keymap.del('n', '[d')
 vim.keymap.set('n', '[g', '<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>',
   { desc = 'Jump to previous diagnostic.' })
 
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition, { desc = 'Go to definition.' })
+
 vim.diagnostic.config({
   virtual_text = true,
   virtual_lines = { current_line = true },
