@@ -1,3 +1,7 @@
+--- @brief
+---
+--- Source: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/util.lua
+
 local Util = {}
 
 --- Appends `new_names` to `root_files` if `field` is found in any such file in any ancestor of `fname`.
