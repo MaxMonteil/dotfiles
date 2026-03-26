@@ -11,4 +11,5 @@ vim.lsp.enable({
   'marksman',
   'yamlls',
   'emmet_language_server',
+  'jsonls',
 })
