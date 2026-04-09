@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Completions
 fpath=(~/.docker/completions $fpath)
 
