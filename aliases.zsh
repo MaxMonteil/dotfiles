@@ -12,6 +12,9 @@ alias oclip="xclip -o -sel clipboard"
 alias vi=nvim
 alias vim=nvim
 
+# git
+alias gst="git status"
+
 # project shortcuts
 alias mylo="cd ~/Code/Mylo"
 alias myapp="cd ~/Code/Mylo/packages/app"
