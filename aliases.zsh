@@ -14,6 +14,7 @@ alias vim=nvim
 
 # git
 alias gst="git status"
+alias gco="git checkout"
 
 # project shortcuts
 alias mylo="cd ~/Code/Mylo"
