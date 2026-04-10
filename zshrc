@@ -40,7 +40,7 @@ setopt CORRECT_ALL
 
 # fnm
 export PATH="/home/$USER/.fnm:$PATH"
-eval "$(fnm env --use-on-cd --version-file-strategy=recursive)"
+{ eval "$(fnm env --use-on-cd --version-file-strategy=recursive)" } > /dev/null 2>&1
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
