@@ -2,9 +2,7 @@
 
 Currently rough setup of my important dotfiles and config files.
 
-## Setup
-
-### Packages
+## Packages
 
 * git
 * [MacPorts](https://www.macports.org/install.php)
@@ -16,9 +14,15 @@ Currently rough setup of my important dotfiles and config files.
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 * [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
 * [fnm](https://github.com/Schniz/fnm)
-* [Node](https://nodejs.org/en/download)
 * [Bun](https://bun.sh/docs/installation)
 * [ni](https://github.com/antfu-collective/ni)
+
+## Step 0
+
+Clone this repo into a folder of your choice, I prefer `~/Code`
+1. `mkdir ~/Code`
+2. `cd ~/Code`
+3. `git clone git@github.com:MaxMonteil/dotfiles.git`
 
 ## Setup
 
@@ -60,8 +64,9 @@ Change Caps Lock key to control:
 		ii. Do you want to enable key bindings? ([y]/n) y
 		iii. Do you want to update your shell configuration files? ([y]/n) n
 3. Create a symlink to the repo's `p10k.zsh` into the home directory
+	a. `ln -s ~/Code/dotfiles/p10k ~/.p10k.zsh`
 4. Create a symlink to the repo's `zshrc` into the home directory
-	a. `ln -s <path-to-git-repo>/dotfiles/zshrc ~/.zshrc`
+	a. `ln -s ~/Code/dotfiles/zshrc ~/.zshrc`
 5. Update the shell
 	a. `exec zsh`
 
@@ -70,17 +75,13 @@ Change Caps Lock key to control:
 1. Install [Neovim](https://neovim.io/doc/install/) (v0.11.7)
 	a. `curl -LO https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-macos-arm64.tar.gz`
 	b. `mkdir -p ~/bin && tar xzf nvim-macos-arm64.tar.gz -C ~/bin`
-3. Create a symlink to the repo's nvim config folder
-	a. `mkdir -p ~/.config && ln -s <path-to-git-repo>/dotfiles/nvim ~/.config/nvim`
+2. Create a symlink to the repo's nvim config folder
+	a. `mkdir -p ~/.config && ln -s ~/Code/dotfiles/nvim ~/.config/nvim`
 
 ## fnm
 
 1. Install [fnm](https://github.com/Schniz/fnm?tab=readme-ov-file#installation) to manage Node versions
   a. `curl -fsSL https://fnm.vercel.app/install | bash`
-
-## Node
-
-Ideally use fnm to install the version of Node you want.
 
 ## ni
 
@@ -88,3 +89,8 @@ Ideally use fnm to install the version of Node you want.
   a. `npm i -g @antfu/ni`
 
 You'll need to do this after every new version of Node that gets installed.
+
+## Bun
+
+1. Install Bun
+  a. `curl -fsSL https://bun.sh/install | bash`
