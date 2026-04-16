@@ -24,7 +24,22 @@ Clone this repo into a folder of your choice, I prefer `~/Code`
 2. `cd ~/Code`
 3. `git clone git@github.com:MaxMonteil/dotfiles.git`
 
-## Setup
+## Automatic Setup
+
+I got AI to write a bash script running through the manual steps below automatically.
+It will ask for confirmation before every step and should make setting up a new machine easier.
+
+I haven't used this script yet so user beware!
+> It doesn't have any dangerous steps like `rm -rf /` so it should be fine...
+
+### Run the setup script
+
+1. Make the script executable
+  a. `chmod +x setup.sh`
+2. Run the script then follow the steps
+  b. `./setup.sh`
+
+## Manual Setup
 
 ### MacOS
 
