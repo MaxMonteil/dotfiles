@@ -3,6 +3,8 @@
 set -euo pipefail
 
 DOTFILES="$HOME/Code/dotfiles"
+AUTHOR_NAME="Maximilien Monteil"
+AUTHOR_EMAIL="maximilienmonteil@gmail.com"
 
 # ── Colors ────────────────────────────────────────────────────────────────────
 RED='\033[0;31m'
@@ -58,6 +60,16 @@ else
     run "mkdir -p ~/Code"
     run "cd ~/Code && git clone git@github.com:MaxMonteil/dotfiles.git"
   fi
+fi
+
+# ── Git global settings ────────────────────────────────────────────────────────
+header "Git"
+
+if ask_step "Set global git settings?"; then
+  git config --global user.name "$AUTHOR_NAME"
+  git config --global user.email "$AUTHOR_EMAIL"
+  git config --global push.autoSetupRemote true
+  success "Git config updated."
 fi
 
 # ── MacOS settings ─────────────────────────────────────────────────────────────
