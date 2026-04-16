@@ -1,24 +1,34 @@
 # README
 
+<!--toc:start-->
+- [README](#readme)
+  - [Packages](#packages)
+  - [Step 0](#step-0)
+    - [Git](#git)
+  - [Automatic Setup](#automatic-setup)
+    - [Run the setup script](#run-the-setup-script)
+  - [Manual Setup](#manual-setup)
+    - [MacOS](#macos)
+    - [MacPorts](#macports)
+    - [Homebrew](#homebrew)
+  - [Ghostty](#ghostty)
+  - [zsh](#zsh)
+    - [Powerlevel10k](#powerlevel10k)
+    - [fzf](#fzf)
+    - [ripgrep](#ripgrep)
+    - [Symlinks](#symlinks)
+  - [Neovim](#neovim)
+    - [LSP](#lsp)
+  - [fnm](#fnm)
+  - [ni](#ni)
+  - [Bun](#bun)
+<!--toc:end-->
+
 Currently rough setup of my important dotfiles and config files.
 
-## Packages
-
-* git
-* [MacPorts](https://www.macports.org/install.php)
-* [Homebrew](https://docs.brew.sh/)
-* [ghostty](https://ghostty.org/download)
-* [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH#install-and-set-up-zsh-as-default)
-    * might already be installed
-* [fzf](https://github.com/junegunn/fzf)
-* [ripgrep](https://github.com/burntsushi/ripgrep)
-* [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-* [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
-* [fnm](https://github.com/Schniz/fnm)
-* [ni](https://github.com/antfu-collective/ni)
-* [Bun](https://bun.sh/docs/installation)
-
 ## Step 0
+
+Make sure `git` is installed.
 
 Clone this repo into a folder of your choice, I prefer `~/Code`
 
@@ -30,7 +40,7 @@ git clone git@github.com:MaxMonteil/dotfiles.git
 
 ### Git
 
-Make sure to update your git username and email:
+Don't forget to update your git username and email:
 
 ```bash
 git config --global user.name "Maximilien Monteil"
@@ -75,13 +85,13 @@ Change Caps Lock key to control:
 
 ### MacPorts
 
-I prefer to use MacPorts when possible, no real reason tbh.
+I prefer to use [MacPorts](https://www.macports.org/install.php) when possible, no real reason tbh.
 
 Install [MacPorts](https://www.macports.org/install.php)
 
 ### Homebrew
 
-Some packages are only on Homebrew though and some installers below depend on it.
+Some packages are only on [Homebrew](https://docs.brew.sh/) though and some installers below depend on it.
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -110,11 +120,15 @@ Next, open ghostty and restart the terminal:
 
 ### Powerlevel10k
 
+Honestly [Powerlevel10k](https://github.com/romkatv/powerlevel10k) is the fastest terminal prompt I've ever seen (yes faster than starship.rs when it comes to git).
+
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
 ### fzf
+
+[fzf](https://github.com/junegunn/fzf) is the fuzzy searcher of excellence.
 
 ```bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -125,6 +139,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ```
 
 ### ripgrep
+
+I rarely use [ripgrep](https://github.com/burntsushi/ripgrep) in the terminal directly, but it's core to the nvim search plugin I have.
 
 ```bash
 sudo port install ripgrep
@@ -148,6 +164,8 @@ exec zsh
 
 ## Neovim
 
+Started with vim to be cool, switch to [Neovim](https://github.com/neovim/neovim) to be cooler, never looked back.
+
 ```bash
 # Install Neovim v0.11.7
 curl -LO https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-macos-arm64.tar.gz
@@ -168,6 +186,10 @@ You can find the needed command at the top of:
 
 ## fnm
 
+`nvm` is dead, long live `nvm`!
+
+[fnm](https://github.com/Schniz/fnm) does essentially the same thing but Rust.
+
 My preferred way to manage Node versions.
 
 ```bash
@@ -175,6 +197,8 @@ curl -fsSL https://fnm.vercel.app/install | bash
 ```
 
 ## ni
+
+I use [ni](https://github.com/antfu-collective/ni) to not have to deal with different node installers in different projects (npm, pnpm, yarn). Having one command in all projects is a muscle-memory saver.
 
 Make sure you have Node installed alrady via [fnm](#fnm).
 
@@ -187,7 +211,7 @@ npm i -g @antfu/ni
 
 ## Bun
 
-I mostly use Bun to write quick scripts in Typescript.
+I mostly use [Bun](https://bun.sh/docs/installation) to write quick scripts in Typescript.
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
