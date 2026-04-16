@@ -21,6 +21,7 @@ Currently rough setup of my important dotfiles and config files.
 ## Step 0
 
 Clone this repo into a folder of your choice, I prefer `~/Code`
+
 ```bash
 mkdir ~/Code`
 cd ~/Code
@@ -30,12 +31,14 @@ git clone git@github.com:MaxMonteil/dotfiles.git
 ### Git
 
 Make sure to update your git username and email:
+
 ```bash
 git config --global user.name "Maximilien Monteil"
 git config --global user.email "maximilienmonteil@gmail.com"
 ```
 
 I also like to auto set the upstream:
+
 ```bash
 git config --global push.autoSetupRemote true
 ```
@@ -43,9 +46,11 @@ git config --global push.autoSetupRemote true
 ## Automatic Setup
 
 I got AI to write a bash script running through the manual steps below automatically.
+
 It will ask for confirmation before every step and should make setting up a new machine easier.
 
 I haven't used this script yet so user beware!
+
 > It doesn't have any dangerous steps like `rm -rf /` so it should be fine...
 
 ### Run the setup script
@@ -88,6 +93,7 @@ eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ## Ghostty
 
 My preferred terminal emulator, it rocks!
+
 Install [Ghostty](https://ghostty.org/download)
 
 ```bash
@@ -97,6 +103,7 @@ ln -s ~/Code/dotfiles/ghostty ~/.config
 ```
 
 Next, open ghostty and restart the terminal:
+
 `cmd+shift+,`
 
 ## zsh
@@ -134,6 +141,7 @@ ln -s ~/Code/dotfiles/zshrc ~/.zshrc
 ```
 
 Then reload the shell to apply all changes.
+
 ```bash
 exec zsh
 ```
