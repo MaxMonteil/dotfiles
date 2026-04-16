@@ -31,6 +31,12 @@ Make sure to update your git username and email:
 git config --global user.name "Maximilien Monteil"
 git config --global user.email "maximilienmonteil@gmail.com"
 ```
+
+I also like to auto set the upstream:
+```bash
+git config --global push.autoSetupRemote true
+```
+
 ## Automatic Setup
 
 I got AI to write a bash script running through the manual steps below automatically.
