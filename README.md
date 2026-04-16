@@ -1,4 +1,4 @@
-# README
+# Max's dotfiles
 
 <!--toc:start-->
 - [Step 0](#step-0)
@@ -9,17 +9,18 @@
   - [MacOS](#macos)
   - [MacPorts](#macports)
   - [Homebrew](#homebrew)
-- [Ghostty](#ghostty)
-- [zsh](#zsh)
-  - [Powerlevel10k](#powerlevel10k)
-  - [fzf](#fzf)
-  - [ripgrep](#ripgrep)
+  - [Ghostty](#ghostty)
+  - [zsh](#zsh)
+    - [Powerlevel10k](#powerlevel10k)
+    - [fzf](#fzf)
+    - [ripgrep](#ripgrep)
   - [Symlinks](#symlinks)
-- [Neovim](#neovim)
-  - [LSP](#lsp)
-- [fnm](#fnm)
-- [ni](#ni)
-- [Bun](#bun)
+  - [Neovim](#neovim)
+    - [LSP](#lsp)
+  - [fnm](#fnm)
+  - [Bun](#bun)
+- [Extras](#extras)
+  - [ni](#ni)
 <!--toc:end-->
 
 Currently rough setup of my important dotfiles and config files.
@@ -194,6 +195,18 @@ My preferred way to manage Node versions.
 curl -fsSL https://fnm.vercel.app/install | bash
 ```
 
+### Bun
+
+I mostly use [Bun](https://bun.sh/docs/installation) to write quick scripts in Typescript.
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+## Extras
+
+These are just reminders and nice-to-haves. Not included in the setup script.
+
 ### ni
 
 I use [ni](https://github.com/antfu-collective/ni) to not have to deal with different node installers in different projects (npm, pnpm, yarn). Having one command in all projects is a muscle-memory saver.
@@ -206,11 +219,3 @@ npm i -g @antfu/ni
 
 > [!NOTE]
 > You'll need to do this after every new version of Node that gets installed.
-
-### Bun
-
-I mostly use [Bun](https://bun.sh/docs/installation) to write quick scripts in Typescript.
-
-```bash
-curl -fsSL https://bun.sh/install | bash
-```
