@@ -143,6 +143,16 @@ else
   fi
 fi
 
+header "zsh — ripgrep"
+
+if command -v rg &>/dev/null; then
+  warn "ripgrep already installed, skipping."
+else
+  if ask_step "Install ripgrep via MacPorts"; then
+    run "sudo port install ripgrep"
+  fi
+fi
+
 header "zsh — Symlinks"
 
 if ask_step "Symlink p10k config (~/.p10k.zsh)"; then

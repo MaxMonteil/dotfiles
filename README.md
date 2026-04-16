@@ -11,6 +11,7 @@ Currently rough setup of my important dotfiles and config files.
 * [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH#install-and-set-up-zsh-as-default)
     * might already be installed
 * [fzf](https://github.com/junegunn/fzf)
+* [ripgrep](https://github.com/burntsushi/ripgrep)
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 * [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
 * [fnm](https://github.com/Schniz/fnm)
@@ -20,9 +21,11 @@ Currently rough setup of my important dotfiles and config files.
 ## Step 0
 
 Clone this repo into a folder of your choice, I prefer `~/Code`
-1. `mkdir ~/Code`
-2. `cd ~/Code`
-3. `git clone git@github.com:MaxMonteil/dotfiles.git`
+```bash
+mkdir ~/Code`
+cd ~/Code
+git clone git@github.com:MaxMonteil/dotfiles.git
+```
 
 ### Git
 
@@ -47,10 +50,12 @@ I haven't used this script yet so user beware!
 
 ### Run the setup script
 
-1. Make the script executable
-  a. `chmod +x setup.sh`
-2. Run the script then follow the steps
-  b. `./setup.sh`
+Make the script executable then run it.
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
 
 ## Manual Setup
 
@@ -64,47 +69,87 @@ Change Caps Lock key to control:
 5. Hit "Done"
 
 ### MacPorts
-1. Install [MacPorts](https://www.macports.org/install.php)
+
+I prefer to use MacPorts when possible, no real reason tbh.
+
+Install [MacPorts](https://www.macports.org/install.php)
 
 ### Homebrew
-1. Install [Homebrew](https://docs.brew.sh)
-  a. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-  b. `echo >> ~/.zprofile`
-  c. `echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> ~/.zprofile`
-  d. `eval "$(/opt/homebrew/bin/brew shellenv zsh)"`
+
+Some packages are only on Homebrew though and some installers below depend on it.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo >> ~/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+```
 
 ## Ghostty
 
-1. Install [Ghostty](https://ghostty.org/download)
-2. Create a symlink to the repo's `ghostty` into the home directory
-  a. `mkdir -p ~/.config && ln -s ~/Code/dotfiles/ghostty ~/.config`
-3. Reload the config
-  a. `cmd+shift+,`
+My preferred terminal emulator, it rocks!
+Install [Ghostty](https://ghostty.org/download)
+
+```bash
+# Create a symlink to the repo's `ghostty` into the home directory
+mkdir -p ~/.config
+ln -s ~/Code/dotfiles/ghostty ~/.config
+```
+
+Next, open ghostty and restart the terminal:
+`cmd+shift+,`
 
 ## zsh
 
-1. Install [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-	a. `git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k`
-2. Install [fzf](https://github.com/junegunn/fzf)
-	a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
-	b. `~/.fzf/install`
-		i. Do you want to enable fuzzy auto-completion? ([y]/n) y
-		ii. Do you want to enable key bindings? ([y]/n) y
-		iii. Do you want to update your shell configuration files? ([y]/n) n
-3. Create a symlink to the repo's `p10k.zsh` into the home directory
-	a. `ln -s ~/Code/dotfiles/p10k ~/.p10k.zsh`
-4. Create a symlink to the repo's `zshrc` into the home directory
-	a. `ln -s ~/Code/dotfiles/zshrc ~/.zshrc`
-5. Update the shell
-	a. `exec zsh`
+### Powerlevel10k
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+```
+
+### fzf
+
+```bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+# Do you want to enable fuzzy auto-completion? ([y]/n) y
+# Do you want to enable key bindings? ([y]/n) y
+# Do you want to update your shell configuration files? ([y]/n) n
+```
+
+### ripgrep
+
+```bash
+sudo port install ripgrep
+```
+
+### Symlinks
+
+```bash
+# Create a symlink to the repo's `p10k.zsh` into the home directory
+ln -s ~/Code/dotfiles/p10k ~/.p10k.zsh
+
+# Create a symlink to the repo's `zshrc` into the home directory
+ln -s ~/Code/dotfiles/zshrc ~/.zshrc
+```
+
+Then reload the shell to apply all changes.
+```bash
+exec zsh
+```
 
 ## Neovim
 
-1. Install [Neovim](https://neovim.io/doc/install/) (v0.11.7)
-	a. `curl -LO https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-macos-arm64.tar.gz`
-	b. `mkdir -p ~/bin && tar xzf nvim-macos-arm64.tar.gz -C ~/bin`
-2. Create a symlink to the repo's nvim config folder
-	a. `mkdir -p ~/.config && ln -s ~/Code/dotfiles/nvim ~/.config/nvim`
+```bash
+# Install Neovim v0.11.7
+curl -LO https://github.com/neovim/neovim/releases/download/v0.11.7/nvim-macos-arm64.tar.gz
+mkdir -p ~/bin
+tar xzf nvim-macos-arm64.tar.gz -C ~/bin
+
+# Create a symlink to the repo's nvim config folder
+mkdir -p ~/.config
+ln -s ~/Code/dotfiles/nvim ~/.config/nvim
+```
 
 ### LSP
 
@@ -115,19 +160,27 @@ You can find the needed command at the top of:
 
 ## fnm
 
-1. Install [fnm](https://github.com/Schniz/fnm?tab=readme-ov-file#installation) to manage Node versions
-  a. `curl -fsSL https://fnm.vercel.app/install | bash`
+My preferred way to manage Node versions.
+
+```bash
+curl -fsSL https://fnm.vercel.app/install | bash
+```
 
 ## ni
 
-Make sure you have Node installed alrady via [[#fnm]].
+Make sure you have Node installed alrady via [fnm](#fnm).
 
-1. Install [ni](https://github.com/antfu-collective/ni) globally
-  a. `npm i -g @antfu/ni`
+```bash
+npm i -g @antfu/ni
+```
 
-You'll need to do this after every new version of Node that gets installed.
+> [!NOTE]
+> You'll need to do this after every new version of Node that gets installed.
 
 ## Bun
 
-1. Install Bun
-  a. `curl -fsSL https://bun.sh/install | bash`
+I mostly use Bun to write quick scripts in Typescript.
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
