@@ -93,6 +93,13 @@ Change Caps Lock key to control:
 2. Create a symlink to the repo's nvim config folder
 	a. `mkdir -p ~/.config && ln -s ~/Code/dotfiles/nvim ~/.config/nvim`
 
+### LSP
+
+Make sure to reinstall the Mason LSP tools after opening Neovim.
+
+You can find the needed command at the top of:
+`dotfiles/nvim/lua/lsp.lua`
+
 ## fnm
 
 1. Install [fnm](https://github.com/Schniz/fnm?tab=readme-ov-file#installation) to manage Node versions
