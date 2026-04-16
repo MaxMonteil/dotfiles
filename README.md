@@ -24,6 +24,13 @@ Clone this repo into a folder of your choice, I prefer `~/Code`
 2. `cd ~/Code`
 3. `git clone git@github.com:MaxMonteil/dotfiles.git`
 
+### Git
+
+Make sure to update your git username and email:
+```bash
+git config --global user.name "Maximilien Monteil"
+git config --global user.email "maximilienmonteil@gmail.com"
+```
 ## Automatic Setup
 
 I got AI to write a bash script running through the manual steps below automatically.
