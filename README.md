@@ -14,8 +14,8 @@ Currently rough setup of my important dotfiles and config files.
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 * [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
 * [fnm](https://github.com/Schniz/fnm)
-* [Bun](https://bun.sh/docs/installation)
 * [ni](https://github.com/antfu-collective/ni)
+* [Bun](https://bun.sh/docs/installation)
 
 ## Step 0
 
@@ -84,6 +84,8 @@ Change Caps Lock key to control:
   a. `curl -fsSL https://fnm.vercel.app/install | bash`
 
 ## ni
+
+Make sure you have Node installed alrady via [[#fnm]].
 
 1. Install [ni](https://github.com/antfu-collective/ni) globally
   a. `npm i -g @antfu/ni`
