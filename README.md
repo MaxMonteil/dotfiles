@@ -6,35 +6,21 @@ Currently rough setup of my important dotfiles and config files.
 
 ### Packages
 
-#### Mac OS
-
-* [macports](https://ports.macports.org/)
-
-#### Shell
-
-* [ghostty](https://ghostty.org/download)
-* [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH#install-and-set-up-zsh-as-default)
-    * might already be installed
-* [oh my zsh](https://ohmyz.sh/)
-* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-
 * git
 * [MacPorts](https://www.macports.org/install.php)
 * [Homebrew](https://docs.brew.sh/)
+* [ghostty](https://ghostty.org/download)
+* [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH#install-and-set-up-zsh-as-default)
+    * might already be installed
+* [fzf](https://github.com/junegunn/fzf)
+* [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+* [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
 * [fnm](https://github.com/Schniz/fnm)
 * [Node](https://nodejs.org/en/download)
 * [Bun](https://bun.sh/docs/installation)
 * [ni](https://github.com/antfu-collective/ni)
-* [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
-    * [vim-plug](https://github.com/junegunn/vim-plug)
-* [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-* [fzf](https://github.com/junegunn/fzf)
 
-### Authentication
-
-1. Setup git SSH with github
-
-## Laptop Setup
+## Setup
 
 ### MacOS
 
@@ -87,18 +73,18 @@ Change Caps Lock key to control:
 3. Create a symlink to the repo's nvim config folder
 	a. `mkdir -p ~/.config && ln -s <path-to-git-repo>/dotfiles/nvim ~/.config/nvim`
 
-## Development
-
-### fnm
+## fnm
 
 1. Install [fnm](https://github.com/Schniz/fnm?tab=readme-ov-file#installation) to manage Node versions
   a. `curl -fsSL https://fnm.vercel.app/install | bash`
 
-### Node
+## Node
 
 Ideally use fnm to install the version of Node you want.
 
-### ni
+## ni
 
 1. Install [ni](https://github.com/antfu-collective/ni) globally
   a. `npm i -g @antfu/ni`
+
+You'll need to do this after every new version of Node that gets installed.
