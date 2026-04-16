@@ -32,7 +32,7 @@ Make sure `git` is installed.
 Clone this repo into a folder of your choice, I prefer `~/Code`
 
 ```bash
-mkdir ~/Code`
+mkdir ~/Code
 cd ~/Code
 git clone git@github.com:MaxMonteil/dotfiles.git
 ```
