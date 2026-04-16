@@ -98,7 +98,7 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ```
 
-## Ghostty
+### Ghostty
 
 My preferred terminal emulator, it rocks!
 
@@ -114,9 +114,9 @@ Next, open ghostty and restart the terminal:
 
 `cmd+shift+,`
 
-## zsh
+### zsh
 
-### Powerlevel10k
+#### Powerlevel10k
 
 Honestly [Powerlevel10k](https://github.com/romkatv/powerlevel10k) is the fastest terminal prompt I've ever seen (yes faster than starship.rs when it comes to git).
 
@@ -124,7 +124,7 @@ Honestly [Powerlevel10k](https://github.com/romkatv/powerlevel10k) is the fastes
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
-### fzf
+#### fzf
 
 [fzf](https://github.com/junegunn/fzf) is the fuzzy searcher of excellence.
 
@@ -136,7 +136,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # Do you want to update your shell configuration files? ([y]/n) n
 ```
 
-### ripgrep
+#### ripgrep
 
 I rarely use [ripgrep](https://github.com/burntsushi/ripgrep) in the terminal directly, but it's core to the nvim search plugin I have.
 
@@ -160,7 +160,7 @@ Then reload the shell to apply all changes.
 exec zsh
 ```
 
-## Neovim
+### Neovim
 
 Started with vim to be cool, switch to [Neovim](https://github.com/neovim/neovim) to be cooler, never looked back.
 
@@ -175,14 +175,14 @@ mkdir -p ~/.config
 ln -s ~/Code/dotfiles/nvim ~/.config/nvim
 ```
 
-### LSP
+#### LSP
 
 Make sure to reinstall the Mason LSP tools after opening Neovim.
 
 You can find the needed command at the top of:
 `dotfiles/nvim/lua/lsp.lua`
 
-## fnm
+### fnm
 
 `nvm` is dead, long live `nvm`!
 
@@ -194,7 +194,7 @@ My preferred way to manage Node versions.
 curl -fsSL https://fnm.vercel.app/install | bash
 ```
 
-## ni
+### ni
 
 I use [ni](https://github.com/antfu-collective/ni) to not have to deal with different node installers in different projects (npm, pnpm, yarn). Having one command in all projects is a muscle-memory saver.
 
@@ -207,7 +207,7 @@ npm i -g @antfu/ni
 > [!NOTE]
 > You'll need to do this after every new version of Node that gets installed.
 
-## Bun
+### Bun
 
 I mostly use [Bun](https://bun.sh/docs/installation) to write quick scripts in Typescript.
 
