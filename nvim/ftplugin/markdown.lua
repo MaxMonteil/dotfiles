@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({'BufWritePost', 'QuitPre'}, {
   command = 'mkview',
 })
 
-vim.api.nvim_create_augroup('BufLeave', {
+vim.api.nvim_create_autocmd('BufLeave', {
   desc = 'Remember cursor position before leaving this markdown buffer.',
   group = folds_augroup,
   buffer = 0,
