@@ -1,4 +1,7 @@
 # Ghostty Theme
+#theme = Catppuccin Frappe
+#theme = Catppuccin Latte
+#theme = Catppuccin Macchiato
 theme = Catppuccin Mocha
 
 # always use block cursor
