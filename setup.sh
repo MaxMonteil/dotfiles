@@ -159,7 +159,7 @@ if ask_step "Symlink p10k config (~/.p10k.zsh)"; then
   if [ -L ~/.p10k.zsh ]; then
     warn "~/.p10k.zsh already exists, skipping."
   else
-    run "ln -s $DOTFILES/p10k ~/.p10k.zsh"
+    run "ln -s $DOTFILES/p10k.zsh ~/.p10k.zsh"
   fi
 fi
 
