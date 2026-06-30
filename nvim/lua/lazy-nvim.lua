@@ -26,10 +26,7 @@ require('lazy').setup({
   -- colorscheme that will be used when installing plugins.
   install = {
     colorscheme = {
-      -- 'catppuccin-latte'
-      -- 'catppuccin-frappe'
-      -- 'catppuccin-macchiato'
-      'catppuccin-mocha'
+      os.getenv('MM_THEME') or 'catppuccin-mocha'
     }
   },
 

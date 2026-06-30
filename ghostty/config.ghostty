@@ -1,8 +1,5 @@
 # Ghostty Theme
-#theme = Catppuccin Frappe
-#theme = Catppuccin Latte
-#theme = Catppuccin Macchiato
-theme = Catppuccin Mocha
+config-file = ?theme.conf
 
 # always use block cursor
 cursor-style = block

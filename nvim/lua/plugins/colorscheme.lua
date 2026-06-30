@@ -7,9 +7,8 @@ return {
   config = function(_, opts)
     require('catppuccin').setup(opts)
 
-    -- vim.cmd.colorscheme 'catppuccin-latte'
-    -- vim.cmd.colorscheme 'catppuccin-frappe'
-    -- vim.cmd.colorscheme 'catppuccin-macchiato'
-    vim.cmd.colorscheme 'catppuccin-mocha'
+    local theme = os.getenv('MM_THEME') or 'catppuccin-mocha'
+
+    vim.cmd.colorscheme(theme)
   end
 }

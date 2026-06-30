@@ -1,3 +1,8 @@
+#####[ THEMING ]#####
+[[ -f "$HOME/.config/mm_theme.zsh" ]] && source "$HOME/.config/mm_theme.zsh"
+: "${MM_THEME:=catppuccin-mocha}"   # fallback default if file doesn't exist
+source "$HOME/.config/themes.zsh"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -65,17 +70,17 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
-# delete whole line when pressing cmd + backspace (also needs ghostty change)
+# delete whole line when pressing cmd + backspace (also needs change in terminal config)
 bindkey "^[w" backward-kill-line
 
 
 # fzf theme (catppuccin-mocha)
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
---color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
---color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
---color=selected-bg:#45475A \
---color=border:#6C7086,label:#CDD6F4"
+--color=bg+:$palette[surface0],bg:$palette[base],spinner:$palette[rosewater],hl:$palette[red] \
+--color=fg:$palette[text],header:$palette[red],info:$palette[mauve],pointer:$palette[rosewater] \
+--color=marker:$palette[lavender],fg+:$palette[text],prompt:$palette[mauve],hl+:$palette[red] \
+--color=selected-bg:$palette[surface1] \
+--color=border:$palette[overlay0],label:$palette[text]"
 
 # gcloud
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
