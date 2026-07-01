@@ -14,6 +14,7 @@
     - [Powerlevel10k](#powerlevel10k)
     - [fzf](#fzf)
     - [ripgrep](#ripgrep)
+  - [Theming](#theming)
   - [Symlinks](#symlinks)
   - [Neovim](#neovim)
     - [LSP](#lsp)
@@ -54,13 +55,9 @@ git config --global push.autoSetupRemote true
 
 ## Automatic Setup
 
-I got AI to write a bash script running through the manual steps below automatically.
+A zsh script that runs through the manual steps below automatically.
 
 It will ask for confirmation before every step and should make setting up a new machine easier.
-
-I haven't used this script yet so user beware!
-
-> It doesn't have any dangerous steps like `rm -rf /` so it should be fine...
 
 ### Run the setup script
 
@@ -106,14 +103,9 @@ My preferred terminal emulator, it rocks!
 Install [Ghostty](https://ghostty.org/download)
 
 ```bash
-# Create a symlink to the repo's `ghostty` into the home directory
-mkdir -p ~/.config
-ln -s ~/Code/dotfiles/ghostty ~/.config
+mkdir -p ~/.config/ghostty
+ln -s ~/Code/dotfiles/ghostty/config.ghostty ~/.config/ghostty/config.ghostty
 ```
-
-Next, open ghostty and restart the terminal:
-
-`cmd+shift+,`
 
 ### zsh
 
@@ -145,25 +137,65 @@ I rarely use [ripgrep](https://github.com/burntsushi/ripgrep) in the terminal di
 sudo port install ripgrep
 ```
 
+### Theming
+
+Theming is mostly driven by the `MM_THEME` environment variable that propagates the chosen theme across the shell, Ghostty, and Neovim. Supported values are:
+
+- `catppuccin-frappe`
+- `catppuccin-latte`
+- `catppuccin-macchiato`
+- `catppuccin-mocha` (default)
+
+The theme is stored in a machine-local file (not part of the repo) so each machine can have its own preference:
+
+```bash
+~/.config/mm_theme.zsh     # sets MM_THEME, sourced by .zshrc
+~/.config/ghostty/theme.conf  # sets Ghostty's theme, included by ghostty config
+```
+
+`scripts/themes.zsh` reads `MM_THEME` and populates the theme `palette` with the corresponding Catppuccin colors. This palette is then used by `.zshrc` (for fzf), `p10k.zsh` (for the prompt), and Neovim (via `os.getenv('MM_THEME')`).
+
+The setup script will prompt you to choose a theme initially and offer to setup the `retheme` helper:
+
+```bash
+retheme
+```
+
+> [!NOTE]
+> This requires `~/bin` to be on your `$PATH`, which your `.zshrc` handles.
+
+After switching, reload the Ghostty config automatically or open a new shell session for the palette changes to take effect.
+
+To set up the helper manually:
+
+```bash
+chmod +x ~/Code/dotfiles/scripts/retheme.zsh
+mkdir -p ~/bin
+ln -s ~/Code/dotfiles/scripts/retheme.zsh ~/bin/retheme
+```
+
 ### Symlinks
 
 ```bash
-# Create a symlink to the repo's `p10k.zsh` into the home directory
-ln -s ~/Code/dotfiles/p10k ~/.p10k.zsh
+# Shell theme/palette definitions
+ln -s ~/Code/dotfiles/scripts/themes.zsh ~/.config/themes.zsh
 
-# Create a symlink to the repo's `zshrc` into the home directory
+# Powerlevel10k prompt config
+ln -s ~/Code/dotfiles/p10k.zsh ~/.p10k.zsh
+
+# Main shell config
 ln -s ~/Code/dotfiles/zshrc ~/.zshrc
 ```
 
 Then reload the shell to apply all changes.
 
 ```bash
-exec zsh
+source ~/.zshrc
 ```
 
 ### Neovim
 
-Started with vim to be cool, switch to [Neovim](https://github.com/neovim/neovim) to be cooler, never looked back.
+Started with vim to be cool, switched to [Neovim](https://github.com/neovim/neovim) to be cooler, never looked back.
 
 ```bash
 # Install Neovim v0.11.7
@@ -195,6 +227,13 @@ My preferred way to manage Node versions.
 curl -fsSL https://fnm.vercel.app/install | bash
 ```
 
+Then install Node LTS and set it as the default:
+
+```bash
+fnm install --lts
+fnm default lts-latest
+```
+
 ### Bun
 
 I mostly use [Bun](https://bun.sh/docs/installation) to write quick scripts in Typescript.
@@ -211,7 +250,7 @@ These are just reminders and nice-to-haves. Not included in the setup script.
 
 I use [ni](https://github.com/antfu-collective/ni) to not have to deal with different node installers in different projects (npm, pnpm, yarn). Having one command in all projects is a muscle-memory saver.
 
-Make sure you have Node installed alrady via [fnm](#fnm).
+Make sure you have Node installed already via [fnm](#fnm).
 
 ```bash
 npm i -g @antfu/ni
