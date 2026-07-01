@@ -36,7 +36,7 @@ header "MacOS"
 if ask_step "Remap Caps Lock → Control (opens Keyboard Settings)"; then
   run "open 'x-apple.systempreferences:com.apple.preference.keyboard'"
   echo "  Follow the steps: Keyboard Shortcuts → Modifier Keys → Caps Lock → Control"
-  read -r -p "  Press Enter when done..."
+  read "?  Press Enter when done..."
 fi
 
 # ── MacPorts ──────────────────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ header "MacPorts"
 
 if ask_step "Install MacPorts (opens download page — install manually)"; then
   run "open https://www.macports.org/install.php"
-  read -r -p "  Press Enter once MacPorts is installed..."
+  read "?  Press Enter once MacPorts is installed..."
 
   # Refresh PATH so port/rg etc. are found without restarting the shell
   if [[ -d /opt/local/bin ]]; then
@@ -72,7 +72,7 @@ header "Ghostty"
 
 if ask_step "Install Ghostty (opens download page — install manually)"; then
   run "open https://ghostty.org/download"
-  read -r -p "  Press Enter once Ghostty is installed..."
+  read "?  Press Enter once Ghostty is installed..."
 fi
 
 if ask_step "Symlink Ghostty config"; then
@@ -126,7 +126,7 @@ if ask_step "Select theme"; then
   echo "    2) Catppuccin Latte"
   echo "    3) Catppuccin Macchiato"
   echo "    4) Catppuccin Mocha"
-  read -r -p "  Choose [1-4]: " theme_choice
+  read "theme_choice?  Choose [1-4]: "
 
   case "$theme_choice" in
     1) MM_THEME="catppuccin-frappe"; GHOSTTY_THEME="Catppuccin Frappe" ;;
@@ -147,10 +147,16 @@ if ask_step "Select theme"; then
 fi
 
 if ask_step "Setup helper to change theme"; then
+  if [[ ! -x "$DOTFILES/scripts/retheme.zsh" ]]; then
+    run "chmod +x $DOTFILES/scripts/retheme.zsh"
+  fi
+
   if [[ -L ~/bin/retheme ]]; then
     warn "~/bin/retheme already exists, skipping."
   else
-    run "ln -s $DOTFILES/scripts/rethemes.sh ~/bin/retheme"
+    run "mkdir -p ~/bin"
+    run "ln -s $DOTFILES/scripts/retheme.zsh ~/bin/retheme"
+    success "Theme helper installed — run 'retheme' from anywhere to switch themes."
   fi
 fi
 
@@ -161,7 +167,7 @@ if ask_step "Symlink themes (~/.config/themes.zsh)"; then
   if [[ -L ~/.config/themes.zsh ]]; then
     warn "~/.config/themes.zsh already exists, skipping."
   else
-    run "ln -s $DOTFILES/themes.zsh ~/.config/themes.zsh"
+    run "ln -s $DOTFILES/scripts/themes.zsh ~/.config/themes.zsh"
   fi
 fi
 

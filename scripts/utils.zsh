@@ -19,7 +19,7 @@ header()  { echo -e "\n${BOLD}━━━ $* ━━━${RESET}"; }
 ask_step() {
   local desc="$1"
   echo -e "\n${BOLD}Step:${RESET} $desc"
-  read -r -p "  Run this step? [y/n/q] " answer
+  read "answer?  Run this step? [y/n/q] "
   case "$answer" in
     [Yy]) return 0 ;;
     [Qq]) echo "Quitting."; exit 0 ;;
@@ -35,7 +35,7 @@ run() {
     success "Done."
   else
     error "Command failed: $cmd"
-    read -r -p "  [r]etry / [s]kip / [q]uit? " choice
+    read "choice?  [r]etry / [s]kip / [q]uit? "
     case "$choice" in
       [Rr]) run "$cmd" ;;
       [Qq]) exit 1 ;;

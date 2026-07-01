@@ -13,9 +13,6 @@ fi
 # Completions
 fpath=(~/.docker/completions $fpath)
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 autoload -Uz compinit; compinit
 
 # Completion styling
@@ -46,11 +43,16 @@ SAVEHIST=$HISTSIZE
 setopt CORRECT
 setopt CORRECT_ALL
 
+export PATH="$HOME/bin:$PATH"
+
 # fnm
 export PATH="/home/$USER/.fnm:$PATH"
 { eval "$(fnm env --use-on-cd --version-file-strategy=recursive)" } > /dev/null 2>&1
 
 # bun
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
